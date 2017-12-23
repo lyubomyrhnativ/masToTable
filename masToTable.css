@@ -1,0 +1,42 @@
+body{
+	display:flex;
+	justify-content:center;
+	padding: 10px;
+	border-radius:10px;
+}
+.table{
+	border-collapse: collapse;
+	margin-right: 20px;
+}
+.td{
+	background-color: lightblue;
+	color:black;
+	border:1px white solid;
+	padding: 10px;
+}
+.del{
+	background-color: white;
+	color:red;
+	font-weight:bold;
+	border:3px red solid;
+	padding: 5px 10px;
+	width:100px;
+}
+.del:hover{
+	background-color: red;
+	color:white;
+}
+
+.form{
+	padding: 10px;
+	width:300px;
+	height:200px;
+	display:flex;
+	flex-direction:column;
+	justify-content:space-around;
+	background-color: lightblue;
+}
+.input{
+	padding: 10px;
+	font-weight: bold;
+}
