@@ -7,10 +7,15 @@ window.onload=function(){
 		["Iryna",30,19000],
 		["Volodymyr",22,26000]
 	];
-	//створюємо таблицю, передаєм в параметрах тег body і двовимірний масив користувачів
-	createTable(document.body,users);
-	//створюємо форму вводу, передаєм в параметрах тег body
-	createForm(document.body);
+	//масив id-значень для елементів форми
+	var masid=["firstname","age","salary","add"];
+
+	//створюємо таблицю, передаєм в параметрах тег body,
+	//двовимірний масив користувачів та id-таблиці
+	createTable(document.body,users,"table1");
+	//створюємо форму вводу, передаєм в параметрах тег body,
+	//масив id-значень для елементів форми та елемент table
+	createForm(document.body,masid,table1);
 
 	
 	//функція - додає новий рядок з даними користувача в таблицю
@@ -45,11 +50,12 @@ window.onload=function(){
 
 	//функція - створює таблицю
 	//параметри: container-батьківський тег для таблиці, 
-	//masusers-двовимірний масив з даними про користувачів
-	function createTable(container,masusers){
+	//masusers-двовимірний масив з даними про користувачів,
+	//tid- id для таблиці
+	function createTable(container,masusers,tid){
 		var table=document.createElement('table');
 		table.classList.add('table');
-		table.setAttribute('id','table');
+		table.setAttribute('id',tid);
 		container.appendChild(table);
 		//викликаєм в циклі функцію addRowTable
 		for(var i=0;i<masusers.length;i++){
@@ -59,20 +65,15 @@ window.onload=function(){
 	
 	//функція-обробник для додавання нового користувача з форми
 	//параметри: table - таблиця(елемент table), 
-	//firstname, age, salary-елементи input, які характеризують
-	//ім'я, вік та зарплату користувача
-	function addNewUser(table,firstname,age,salary){
+	//maselement-масив елементів форми
+	function addNewUser(table,maselement){
 		//зчитуєм дані з форми і заносим їх в масив
 		var mas=[];
-		var namevalue=firstname.value;
-		if(!namevalue) return;
-		mas.push(namevalue);
-		var agevalue=age.value;
-		if(!agevalue) return;
-		mas.push(age.value);
-		var salaryvalue=salary.value;
-		if(!salaryvalue) return;
-		mas.push(salaryvalue);
+		for(var i=0;i<maselement.length;i++){
+			var namelement=maselement[i].value;
+			if(!namelement) return;
+			mas.push(namelement);
+		}
 		//викликаєм функцію addRowTable
 		addRowTable(table,mas);
 		firstname.value='';
@@ -81,30 +82,37 @@ window.onload=function(){
 	}
 
 	//функція - створює форму для вводу даних
-	//параметри: container-батьківський тег для форми 
-	function createForm(container){
-		var mas=["firstname","age","salary","add"];
+	//параметри: container-батьківський тег для форми,
+	//mas-масив id-значень для елементів форми
+	//table - елемент table, з яким буде взаємодіяти форма 
+	function createForm(container,mas,table){
+		var maselement=[];
 		var form=document.createElement('form');
 		form.classList.add('form');
 		container.appendChild(form);
 		//створюємо в циклі елементи input і додаєм їх в тег form
 		for(var i=0;i<mas.length;i++){
 			var input=document.createElement('input');
-			input.classList.add('input');
+			
 			form.appendChild(input);
 			input.setAttribute("id",mas[i]);
+			input.classList.add('input');
 			//останній input повинен бути кнопкою і мати функцію обробник на
 			//подію onclick
 			if(i==mas.length-1){
 				input.setAttribute('type','button');
 				input.setAttribute('value','addUser');
+				input.classList.add('addinput');
 				input.onclick=function(){
 					//виклик функції addNewUser
-					addNewUser(table,firstname,age,salary);
+					addNewUser(table,maselement);
 				}
 			}
-			else
+			else{
 				input.setAttribute('placeholder','input '+mas[i]);
+				
+				maselement.push(input);
+			}
 		}
 	}
 }

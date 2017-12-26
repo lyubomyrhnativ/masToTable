@@ -40,3 +40,13 @@ body{
 	padding: 10px;
 	font-weight: bold;
 }
+.addinput{
+	background-color: white;
+	color:green;
+	font-weight:bold;
+	border:3px green solid;
+}
+.addinput:hover{
+	background-color: green;
+	color:white;
+}
